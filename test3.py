@@ -5,7 +5,7 @@ im = Image.open('test.jpg')
 
 newsize = (200, 500)
 
-im1 = im.resize(newsize,quality=95)
+im1 = im.resize(newsize)
 
 fig, ax = plt.subplots(1, 2, figsize=(15, 10))
 
