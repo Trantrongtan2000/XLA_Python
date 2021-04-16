@@ -1,21 +1,41 @@
-import imageio
-import matplotlib.pyplot as plt
 import numpy as np
-im = imageio.imread('chest-221.dcm')
+import matplotlib.pyplot as plt
+from matplotlib.widgets import Button
 
 
-#plt.imshow(im, cmap='gray')
-#plt.axis('off')
-#plt.show()
 
-fig, ax = plt.subplots(1, 3, figsize=(15, 10))
-# Draw the image in grayscale
-ax[0].imshow(im, cmap='gray');
+freqs = np.arange(2, 20, 3)
 
-# Draw the image with greater contrast
-ax[1].imshow(im, cmap='gray', vmin=-200, vmax=200);
+fig, ax = plt.subplots()
+plt.subplots_adjust(bottom=0.2)
+t = np.arange(0.0, 1.0, 0.001)
+s = np.sin(2*np.pi*freqs[0]*t)
+l, = plt.plot(t, s, lw=2)
 
-# Remove axis ticks and labels
-ax[2].imshow(im, cmap='gray', vmin=-200, vmax=200);
-ax[2].axis('off');
+
+class Index:
+    ind = 0
+
+    def next(self, event):
+        self.ind += 1
+        i = self.ind % len(freqs)
+        ydata = np.sin(2*np.pi*freqs[i]*t)
+        l.set_ydata(ydata)
+        plt.draw()
+
+    def prev(self, event):
+        self.ind -= 1
+        i = self.ind % len(freqs)
+        ydata = np.sin(2*np.pi*freqs[i]*t)
+        l.set_ydata(ydata)
+        plt.draw()
+
+callback = Index()
+axprev = plt.axes([0.7, 0.05, 0.1, 0.075])
+axnext = plt.axes([0.81, 0.05, 0.1, 0.075])
+bnext = Button(axnext, 'Tiếp')
+bnext.on_clicked(callback.next)
+bprev = Button(axprev, 'Quay lại')
+bprev.on_clicked(callback.prev)
+
 plt.show()
