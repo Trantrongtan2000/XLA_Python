@@ -12,7 +12,8 @@ a=int(input("Nhập tỉ lệ muốn giảm:\n"))
 x, y = foo.size
 x2, y2 = math.floor(x*a), math.floor(y*a)
  
-foo = foo.resize((x2,y2),Image.ANTIALIAS)
+foo = foo.rpen cv shape
+esize((x2,y2),Image.ANTIALIAS)
 foo.save("image_scaled.jpg",optimize=True,quality=95)
   
 im = imageio.imread('test.jpg')
