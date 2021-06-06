@@ -4,20 +4,21 @@ import numpy as np
 from PIL import Image
 import math
  
-foo = Image.open("test.jpg")
+img = Image.open("lung-cancer.png")
  
-#print(foo.size)
+#print(img.size)
 a=int(input("Nhập tỉ lệ muốn giảm:\n"))
  
-x, y = foo.size
-x2, y2 = math.floor(x*a), math.floor(y*a)
+x, y = img.size
+x2, y2 = math.floor(x/a), math.floor(y/a)
  
-foo = foo.rpen cv shape
-esize((x2,y2),Image.ANTIALIAS)
-foo.save("image_scaled.jpg",optimize=True,quality=95)
+
+img = img.resize((x2,y2),Image.ANTIALIAS)
+
+img.save("image_scaled.png",optimize=True,quality=95)
   
-im = imageio.imread('test.jpg')
-im2 = imageio.imread('image_scaled.jpg')
+im = imageio.imread('lung-cancer.png')
+im2 = imageio.imread('image_scaled.png')
 fig, ax = plt.subplots(2, 1, figsize=(15, 10))
  
 ax[0].imshow(im);
